@@ -191,4 +191,47 @@
     });
   }
 
+/** Contact Form */
+
+emailjs.init("wLIGC7NiZfG20CFwr");
+
+const form = document.getElementById("contact-form");
+const loading = document.querySelector(".loading");
+const errorMsg = document.querySelector(".error-message");
+const sentMsg = document.querySelector(".sent-message");
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault(); // impedisce il reload
+
+  errorMsg.style.display = "none";
+  sentMsg.style.display = "none";
+
+  const captcha = grecaptcha.getResponse();
+
+  if (!captcha) {
+    errorMsg.style.display = "block";
+    errorMsg.innerText = "Please verify that you are not a robot.";
+    return;
+  }
+
+  loading.style.display = "block";
+
+  emailjs.sendForm(
+    "service_739clpi",
+    "template_contact",
+    form
+  )
+  .then(() => {
+    loading.style.display = "none";
+    sentMsg.style.display = "block";
+    form.reset();
+    grecaptcha.reset();
+  })
+  .catch(() => {
+    loading.style.display = "none";
+    errorMsg.style.display = "block";
+    errorMsg.innerText = "Error sending message.";
+  });
+});
+
 })();
