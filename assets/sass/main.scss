@@ -1,0 +1,518 @@
+/* main.scss */
+
+// 1. Variables
+:root {
+    --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --heading-font: "Raleway", sans-serif;
+    --nav-font: "Poppins", sans-serif;
+
+    --background-color: #ffffff;
+    --default-color: #444444;
+    --heading-color: #222222;
+    --accent-color: #1b7895;
+    --surface-color: #ffffff;
+    --contrast-color: #ffffff;
+
+    --nav-color: #444444;
+    --nav-hover-color: #1b7895;
+    --nav-mobile-background-color: #ffffff;
+    --nav-dropdown-background-color: #ffffff;
+    --nav-dropdown-color: #444444;
+    --nav-dropdown-hover-color: #1b7895;
+
+    scroll-behavior: smooth;
+}
+
+// 2. Color Presets
+.light-background {
+    --background-color: #e2e0de;
+    --surface-color: #ffffff;
+}
+.dark-background {
+    --background-color: #060606;
+    --default-color: #ffffff;
+    --heading-color: #ffffff;
+    --surface-color: #252525;
+    --contrast-color: #ffffff;
+}
+
+// 3. Mixins
+@mixin transition($args...) {
+    transition: $args;
+}
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// 4. Base Styles
+body {
+    color: var(--default-color);
+    background-color: var(--background-color);
+    font-family: var(--default-font);
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    @include transition(0.3s);
+
+    &:hover {
+        // color: color-mix(in srgb, var(--accent-color), transparent 25%);
+        text-decoration: none;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--heading-color);
+    font-family: var(--heading-font);
+}
+
+// 5. Buttons
+.btn-priamary {
+    color: var(--contrast-color);
+    background: var(--accent-color);
+    font-family: var(--heading-font);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 12px 40px;
+    border-radius: 50px;
+    @include transition(0.5s);
+
+    &:hover {
+        background: color-mix(in srgb, var(--accent-color) 90%, white 20%);
+    }
+}
+
+.section-title a.btn-priamary {
+    margin-top: 20px;
+}
+
+// 6. Email Form Messages
+.email-form {
+    border-radius: 20px;
+
+    .error-message {
+        display: none;
+        background: #df1529;
+        color: #fff;
+        text-align: left;
+        padding: 15px;
+        margin-bottom: 24px;
+        font-weight: 600;
+    }
+    .sent-message {
+        display: none;
+        color: #fff;
+        background: #059652;
+        text-align: center;
+        padding: 15px;
+        margin-bottom: 24px;
+        font-weight: 600;
+    }
+    .loading {
+        display: none;
+        background: var(--surface-color);
+        text-align: center;
+        padding: 15px;
+        margin-bottom: 24px;
+
+        &:before {
+            content: "";
+            display: inline-block;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            margin: 0 10px -6px 0;
+            border: 3px solid var(--accent-color);
+            border-top-color: var(--surface-color);
+            animation: email-form-loading 1s linear infinite;
+        }
+    }
+}
+
+@keyframes email-form-loading {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+}
+
+// 7. Header
+.header {
+    color: var(--default-color);
+    background-color: var(--background-color);
+    padding: 10px 0;
+    @include transition(all 0.5s);
+    z-index: 997;
+    box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
+
+    .logo {
+        line-height: 1;
+        margin-left: 40px;
+
+        img { max-height: 60px; }
+        h1 {
+            font-size: 32px;
+            margin: 0;
+            font-weight: 300;
+            text-transform: uppercase;
+            color: var(--heading-color);
+        }
+    }
+
+    .header-social-links {
+        padding-right: 40px;
+
+        a {
+            color: color-mix(in srgb, var(--default-color), transparent 40%);
+            padding-left: 6px;
+            display: inline-block;
+            @include transition(0.3s);
+            font-size: 16px;
+
+            &:hover { color: var(--accent-color); }
+            i { line-height: 0px; }
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .header {
+        .logo { order: 1; }
+        .header-social-links { order: 2; }
+        .navmenu { order: 3; }
+    }
+}
+
+// 8. Navigation Menu
+@import "navmenu"; // You can split nav styles into _navmenu.scss
+
+// 9. Footer
+.footer {
+    color: var(--default-color);
+    background-color: var(--background-color);
+    font-size: 14px;
+    padding: 40px 0;
+    position: relative;
+    margin-top: 10px;
+    font-size: 13px;
+    text-align: center;
+
+    .copyright p { margin-bottom: 0; }
+    .social-links {
+        margin-top: 20px;
+        a {
+            @include flex-center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid color-mix(in srgb, var(--default-color), transparent 50%);
+            font-size: 16px;
+            color: color-mix(in srgb, var(--default-color), transparent 50%);
+            margin: 0 5px;
+            @include transition(0.3s);
+
+            &:hover {
+                color: var(--accent-color);
+                border-color: var(--accent-color);
+            }
+        }
+    }
+}
+
+// 10. Preloader
+#preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    overflow: hidden;
+    background-color: var(--background-color);
+    @include transition(all 0.6s ease-out);
+    width: 100%;
+    height: 100vh;
+
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        border: 4px solid var(--accent-color);
+        border-radius: 50%;
+        animation: animate-preloader 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+    &:after { animation-delay: -0.5s; }
+}
+
+@keyframes animate-preloader {
+    0% {
+        width: 10px;
+        height: 10px;
+        top: calc(50% - 5px);
+        left: calc(50% - 5px);
+        opacity: 1;
+    }
+    100% {
+        width: 72px;
+        height: 72px;
+        top: calc(50% - 36px);
+        left: calc(50% - 36px);
+        opacity: 0;
+    }
+}
+
+// 11. Scroll Top Button
+.scroll-top {
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    right: 15px;
+    bottom: -15px;
+    z-index: 99999;
+    background-color: var(--accent-color);
+    width: 44px;
+    height: 44px;
+    border-radius: 50px;
+    @include transition(all 0.4s);
+
+    i {
+        font-size: 24px;
+        color: var(--contrast-color);
+        line-height: 0;
+    }
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+        color: var(--contrast-color);
+    }
+    &.active {
+        visibility: visible;
+        opacity: 1;
+        bottom: 15px;
+    }
+}
+
+// 12. Responsive AOS
+@media screen and (max-width: 768px) {
+    [data-aos-delay] {
+        transition-delay: 0 !important;
+    }
+}
+
+// 13. Page Titles
+.page-title {
+    color: var(--default-color);
+    background-color: var(--background-color);
+    padding: 25px 0;
+    position: relative;
+    border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding-left: 10px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+
+    &:before {
+        content: "/";
+        display: inline-block;
+        padding-right: 10px;
+        color: color-mix(in srgb, var(--default-color), transparent 70%);
+    }
+
+    h1 {
+        font-size: 24px;
+        font-weight: 400;
+    }
+}
+
+// 14. Sections
+section, .section {
+    color: var(--default-color);
+    background-color: var(--background-color);
+    padding: 60px 0;
+    scroll-margin-top: 100px;
+    overflow: clip;
+}
+@media (max-width: 1199px) {
+    section, .section {
+        scroll-margin-top: 66px;
+    }
+}
+
+// 15. Section Titles
+.section-title {
+    text-align: center;
+    padding-bottom: 20px;
+    position: relative;
+
+    h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        position: relative;
+
+        &:after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    }
+    p { margin-bottom: 0; }
+}
+
+// 16. Hero Section
+.hero {
+    width: 100%;
+    min-height: calc(100vh - 82px);
+    position: relative;
+    padding: 80px 0;
+    @include flex-center;
+
+    @media (max-width: 1200px) {
+        min-height: calc(100vh - 68px);
+    }
+
+    img {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+    }
+    .container {
+        position: relative;
+        z-index: 3;
+    }
+    h2 {
+        margin: 0;
+        font-size: 48px;
+        font-weight: 700;
+        @media (max-width: 768px) { font-size: 32px; }
+    }
+    p {
+        margin: 10px 0 0 0;
+        font-size: 24px;
+        color: var(--heading-color);
+        @media (max-width: 768px) { font-size: 18px; }
+
+        span {
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+    }
+    .btn-get-started {
+        color: var(--contrast-color);
+        background: var(--accent-color);
+        font-family: var(--heading-font);
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 1px;
+        display: inline-block;
+        padding: 12px 40px;
+        border-radius: 50px;
+        @include transition(0.5s);
+        margin-top: 30px;
+
+        &:hover {
+            background: color-mix(in srgb, var(--accent-color) 90%, white 20%);
+        }
+    }
+}
+
+// 17. About Section
+.about {
+    .content {
+        h2 { font-weight: 700; font-size: 24px; }
+        ul {
+            list-style: none;
+            padding: 0;
+            li {
+                margin-bottom: 20px;
+                @include flex-center;
+                strong { margin-right: 10px; }
+                i {
+                    font-size: 16px;
+                    margin-right: 5px;
+                    color: var(--accent-color);
+                    line-height: 0;
+                }
+            }
+        }
+    }
+}
+.txt-center { align-content: center; }
+.img-center { @include flex-center; }
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+// 18. Resume Section
+.resume {
+    .resume-title {
+        color: var(--heading-color);
+        font-size: 26px;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .resume-item {
+        padding: 0 0 20px 20px;
+        margin-top: -2px;
+        border-left: 2px solid var(--accent-color);
+        position: relative;
+
+        h4 {
+            line-height: 18px;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: color-mix(in srgb, var(--default-color), transparent 20%);
+            margin-bottom: 10px;
+        }
+        h5 {
+            font-size: 16px;
+            padding: 5px 15px;
+            display: inline-block;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        ul {
+            padding-left: 20px;
+            li { padding-bottom: 10px; }
+        }
+        &:last-child { padding-bottom: 0; }
+        &::before {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50px;
+            left: -9px;
+            top: 0;
+            background: var(--background-color);
+            border: 2px solid var(--accent-color);
+        }
+    }
+}
+
+// 19. Services Section
+@import "services"; // You can split services styles into _services.scss
+
+// 20. Contact Section
+@import "contact"; // You can split contact styles into _contact.scss

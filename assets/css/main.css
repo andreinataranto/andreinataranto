@@ -740,6 +740,17 @@ section,
   align-content: center;
 }
 
+.img-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
 
 /*--------------------------------------------------------------
 # Resume Section
