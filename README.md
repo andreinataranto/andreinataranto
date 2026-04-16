@@ -15,6 +15,7 @@ Sito web di Andreina Taranto
 assets/
   css/
   js/
+  sass/
   img/
   vendor/
 index.html
