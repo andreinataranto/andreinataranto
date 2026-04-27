@@ -123,6 +123,8 @@ window.addEventListener("scroll", () => {
 
 /** Contact Form */
 
+document.addEventListener("DOMContentLoaded", () => {
+
 emailjs.init("wLIGC7NiZfG20CFwr");
 
 const form = document.getElementById("contact-form");
@@ -164,4 +166,5 @@ form.addEventListener("submit", function(e) {
   });
 });
 
+})();
 })();
